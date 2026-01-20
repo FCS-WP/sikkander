@@ -1,0 +1,148 @@
+/* =====================================
+   Rio Marquee – Production CSS
+===================================== */
+
+.rio-marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.rio-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: rio-marquee-scroll linear infinite;
+  will-change: transform;
+  gap: 30px; /* default fallback */
+}
+
+/* Pause on hover */
+.rio-marquee[data-pause="yes"]:hover .rio-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Item */
+.rio-marquee-item {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Image base */
+.rio-marquee-item img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  will-change: transform, filter;
+}
+
+/* ============================
+   IMAGE FIT MODES
+============================ */
+
+/* Contain */
+.rio-fit-contain .rio-marquee-item img {
+  object-fit: contain;
+}
+
+/* Cover */
+.rio-fit-cover .rio-marquee-item img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Original */
+.rio-fit-none .rio-marquee-item img {
+  object-fit: none;
+}
+
+/* Fixed 1024x1024 */
+.rio-fit-fixed .rio-marquee-item img {
+  width: 1024px;
+  height: 1024px;
+  object-fit: contain;
+}
+
+/* Custom handled by Elementor */
+.rio-fit-custom .rio-marquee-item img {
+  object-fit: contain;
+}
+
+/* ============================
+   ASPECT RATIO
+============================ */
+
+.rio-marquee-item::before {
+  content: '';
+  display: block;
+}
+
+.rio-ratio-1-1 .rio-marquee-item::before {
+  padding-top: 100%;
+}
+
+.rio-ratio-4-3 .rio-marquee-item::before {
+  padding-top: 75%;
+}
+
+.rio-ratio-16-9 .rio-marquee-item::before {
+  padding-top: 56.25%;
+}
+
+.rio-ratio-auto .rio-marquee-item::before {
+  display: none;
+}
+
+/* Absolute image positioning */
+.rio-ratio-1-1 .rio-marquee-item img,
+.rio-ratio-4-3 .rio-marquee-item img,
+.rio-ratio-16-9 .rio-marquee-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================
+   HOVER EFFECTS
+============================ */
+
+/* Scale */
+.rio-hover-scale .rio-marquee-item:hover img {
+  transform: scale(1.08);
+}
+
+/* Grayscale */
+.rio-hover-grayscale .rio-marquee-item img {
+  filter: grayscale(100%);
+}
+.rio-hover-grayscale .rio-marquee-item:hover img {
+  filter: grayscale(0);
+}
+
+/* Both */
+.rio-hover-both .rio-marquee-item img {
+  filter: grayscale(100%);
+}
+.rio-hover-both .rio-marquee-item:hover img {
+  filter: grayscale(0);
+  transform: scale(1.08);
+}
+
+/* ============================
+   KEYFRAMES
+============================ */
+
+@keyframes rio-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
